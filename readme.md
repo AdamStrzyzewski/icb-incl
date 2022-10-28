@@ -19,7 +19,7 @@ About something like this:
 ```
 
 ## UI
-- bottom part is console, run a snippet with `command+enter (macos)` or `shift+enter (windows)`, or `command+R/ ctrl+R`
+- bottom part is console, run a snippet with `command+enter (macos)` or `shift+enter (windows)`, or `command+R` / `ctrl+R`
 - you will see a code+result with the execution time on the top
 - on `command+s` or `ctrl+s` you save the snippet to the currently typed folder (top right input), default snippet-folder, does support nested paths
 - when saving the snippet, it autoincrements the name, but you can also add a first line comment with a name for the snippet like so:
@@ -39,7 +39,7 @@ console.log(x);
 
 - right hand side supports folders vs snippets, allows to delete snippets, no folder removing (for safety), if you click a folder it navigates into it, if you click a snippet you run it as if you typed it
 
-- there's not back button in folder list because I'm lazy
+- there's no back button in folder list because I'm lazy
 
 ## general notes
 - timeout,interval function etc. don't currently work
