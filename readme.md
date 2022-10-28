@@ -7,7 +7,8 @@ I needed a tool for teaching a JS class, that is relatively useful, and has a fe
 ## how it looks?
 
 About something like this:
-![image](https://user-images.githubusercontent.com/36886348/198550831-811e2527-d357-47ef-84b5-cf181c23d8f8.png)
+
+![image](https://user-images.githubusercontent.com/36886348/198551336-9c926774-f494-4374-b61b-a64ac8d12867.png)
 
 ## how to run
 
