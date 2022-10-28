@@ -23,7 +23,7 @@ const createReadableACE = (id) => {
     highlightActiveLine: false,
     highlightGutterLine: false,
   });
-  editor.setTheme("ace/theme/clouds_midnight");
+  editor.setTheme("ace/theme/cobalt");
   editor.session.setMode("ace/mode/javascript");
   editor.renderer.$cursorLayer.element.style.display = "none";
   editor.renderer.setShowGutter(false);
@@ -145,6 +145,7 @@ const folderMove = function () {
 
 function deleteSnippet(e) {
   e.stopPropagation();
+  console.log(this);
   socket.emit("deleteSnippet", {
     snippet: this.dataset.snippet,
     folder,
@@ -165,6 +166,7 @@ socket.on("fileList", (data) => {
       listItem.classList.add("snippet-list__item");
       const name = document.createElement("span");
       name.innerHTML = file.name;
+
       if (!file.isFolder) {
         const deleteIcon = document.createElement("span");
         deleteIcon.classList.add("delete-icon");
@@ -173,7 +175,7 @@ socket.on("fileList", (data) => {
         deleteIcon.addEventListener("click", deleteSnippet);
       }
       listItem.appendChild(name);
-      listItem.dataset.snippet = file.name;
+      listItem.dataset.snippet = !file.isFolder ? file.name : file.path;
       if (file.isFolder) {
         listItem.addEventListener("click", folderChange);
       } else {

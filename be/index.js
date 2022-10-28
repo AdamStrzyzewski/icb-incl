@@ -28,9 +28,16 @@ const getFileList = async (folder) => {
       async (filename) =>
         new Promise(async (resolve) => {
           const stats = await fs.stat(`${getPath(folder)}/${filename}`);
+          const isFolder = stats.isDirectory();
+          let path = filename;
+          if (isFolder) {
+            path = `${folder}/${filename}`;
+          }
+
           resolve({
             name: filename,
-            isFolder: stats.isDirectory(),
+            isFolder,
+            path,
           });
         })
     );
