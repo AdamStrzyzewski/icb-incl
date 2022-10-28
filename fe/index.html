@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ICB-INCL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/index.min.css" />
+    <script
+      src="./libs/ace/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+  </head>
+  <body>
+    <div class="site-container">
+      <div class="console-column">
+        <div id="result-box" class="result-box"></div>
+        <div class="console-container">
+          <pre class="language-js" id="code-console"></pre>
+        </div>
+      </div>
+      <div class="snippets-container">
+        <input type="text" id="folder-selector" class="folder-selector" />
+        <ul id="snippet-list" class="snippet-list"></ul>
+      </div>
+    </div>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>

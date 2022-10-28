@@ -1,0 +1,120 @@
+@use "../partials/pallete" as *;
+
+body {
+  font-size: 20px;
+  font-family: "Montserrat", sans-serif;
+  background: $outer-space-crayola;
+}
+.site-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+}
+.console-column {
+  height: 100%;
+  width: 80%;
+}
+
+.folder-selector {
+  width: 100%;
+  display: block;
+  padding: 15px;
+  background-color: $outer-space-crayola;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 1.5em;
+}
+.snippets-container {
+  background: $hunter-green;
+  border-left: 1px solid $carrot-orange;
+  width: 20%;
+  overflow-y: scroll;
+  .snippet-list {
+    list-style: none;
+    color: black;
+    &__item {
+      padding: 5px;
+      cursor: pointer;
+      background-color: $green-yellow-light;
+      margin: 10px;
+      color: $carrot-orange;
+      letter-spacing: 1.5px;
+      transition: background-color 0.5s;
+      padding: 10px;
+      position: relative;
+      &:hover {
+        background-color: $outer-space-crayola;
+      }
+      .delete-icon {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        right: 5px;
+        background-image: url("/img/delete.png");
+        background-size: contain;
+        background-position: center;
+        transition: transform 0.5s;
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}
+
+.console-container {
+  display: flex;
+  height: 40%;
+  overflow: scroll;
+  align-items: stretch;
+
+  #code-console {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.result-box {
+  flex: 1;
+  // background: $outer-space-crayola;
+  height: 60%;
+  overflow: scroll;
+  background-color: $outer-space-crayola;
+  padding-bottom: 5%;
+  .code-example {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    border-bottom: 1px solid $carrot-orange;
+    &__snippet,
+    &__result {
+      width: 48%;
+      border-radius: 10px;
+      padding: 10px;
+      margin: 10px;
+      height: 100%;
+    }
+
+    &__snippet {
+      pointer-events: none;
+      height: 100%;
+    }
+
+    &__result {
+      min-height: 50px;
+
+      .timer {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        color: white;
+        padding: 2px 30px;
+        background: $carrot-orange;
+        border-radius: 10px;
+      }
+    }
+  }
+}
