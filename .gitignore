@@ -1,2 +1,3 @@
 /snippets/*
 node_modules
+.vscode
