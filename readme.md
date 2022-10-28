@@ -50,6 +50,7 @@ console.log(x);
 - using Function constructor, so everything that entails
 - might use electron to bundle as an app after a couple of downloads
 - you are welcome to PR especially for styles, but I would recommend waiting a bit while this takes shape
+- yes it's vanilla js, I don't see a point for a framework here
 
 ## libs used
 - [ACE Editor](https://github.com/ajaxorg/ace) - for all code highlight and editing, cool stuff
