@@ -3,6 +3,12 @@
 ## Why?
 I needed a tool for teaching a JS class, that is relatively useful, and has a feature of saving multiple snippets quickly into multiple folders that I can later share with the class in separate repos - after 3hrs we are here
 
+
+## how it looks?
+
+About something like this:
+![image](https://user-images.githubusercontent.com/36886348/198550831-811e2527-d357-47ef-84b5-cf181c23d8f8.png)
+
 ## how to run
 
 ```
