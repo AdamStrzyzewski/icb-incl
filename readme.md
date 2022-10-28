@@ -41,7 +41,7 @@ console.log(x);
 - BE could use typescript - pending
 - yes it looks terrible idc
 - using Function constructor, so everything that entails
-- might use electron to bundle as an app after a couple of stars
+- might use electron to bundle as an app after a couple of downloads
 - you are welcome to PR especially for styles, but I would recommend waiting a bit while this takes shape
 
 ## libs used
