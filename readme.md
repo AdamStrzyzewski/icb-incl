@@ -52,5 +52,5 @@ console.log(x);
 ## why name tho
 [I can't believe it's not console.log](https://www.youtube.com/watch?v=e33SNyaXNsk)
 
-## can I steal it?
+## what can I do with it
 it's free real estate, do whatever, if you want you can credit me
