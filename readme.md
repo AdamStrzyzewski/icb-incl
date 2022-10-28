@@ -1,7 +1,7 @@
 # Quick snippet runner and saver
 
 ## Why?
-I needed a tool for teaching a JS class, this is quite verbose, and has a feature of saving multiple snippets quickly into multiple folders that I can later share with the class in separate repos - after 3hrs we are here
+I needed a tool for teaching a JS class, that is relatively useful, and has a feature of saving multiple snippets quickly into multiple folders that I can later share with the class in separate repos - after 3hrs we are here
 
 ## how to run
 
