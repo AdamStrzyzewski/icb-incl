@@ -45,7 +45,7 @@ const printTo = (toPrint, snippet, t = null) => {
   snippetContainer.classList.add("language-js");
   snippetContainer.innerHTML = snippet;
 
-  exampleContainer.appendChild(snippetContainer);
+  // exampleContainer.appendChild(snippetContainer);
   exampleContainer.appendChild(resultContainer);
 
   const toWrite = [];
@@ -56,17 +56,17 @@ const printTo = (toPrint, snippet, t = null) => {
   });
   resultContainer.innerHTML = toWrite.join("\n");
 
-  resultBox.appendChild(exampleContainer);
+  resultBox.prepend(exampleContainer);
 
-  const id = `code-snippet-${Math.floor(Math.random() * 100000)}`;
-  snippetContainer.id = id;
-  createReadableACE(id);
+  // const id = `code-snippet-${Math.floor(Math.random() * 100000)}`;
+  // snippetContainer.id = id;
+  // createReadableACE(id);
 
   const idResult = `code-result-${Math.floor(Math.random() * 100000)}`;
   resultContainer.id = idResult;
   createReadableACE(idResult);
 
-  scrollElemToBottom(resultBox);
+  // scrollElemToBottom(resultBox);
 
   if (t !== null) {
     const timer = document.createElement("span");
@@ -78,11 +78,11 @@ const printTo = (toPrint, snippet, t = null) => {
 
 const editor = ace.edit("code-console", {
   maxLines: Infinity,
-  minLines: 15,
+  minLines: 50,
   fontSize: "1em",
 });
 
-editor.setTheme("ace/theme/clouds_midnight");
+editor.setTheme("ace/theme/cobalt");
 editor.session.setMode("ace/mode/javascript");
 
 const evalSnippet = (snippet) => {
@@ -94,7 +94,7 @@ const evalSnippet = (snippet) => {
         toPrint.push(args);
       };
       ${snippet
-        .replace(/console\.log\((.*)\)/g, "addToPush($1)")
+        .replace(/console\.log\(/g, "addToPush(")
         .replace(/log\((.*)\)/g, "addToPush($1)")};
       // TODO: handle setTimeouts etc
       return toPrint;`)();
@@ -145,7 +145,6 @@ const folderMove = function () {
 
 function deleteSnippet(e) {
   e.stopPropagation();
-  console.log(this);
   socket.emit("deleteSnippet", {
     snippet: this.dataset.snippet,
     folder,
@@ -193,7 +192,7 @@ folderSelector.addEventListener("keyup", folderKeyup);
 
 // NOTE: dev - for testing
 // socket.emit("loadSnippet", {
-//   snippet: "1-for",
+//   snippet: "1-get random int",
 //   folder,
 // });
 

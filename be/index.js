@@ -73,7 +73,9 @@ const saveFile = async (folder, stringToSave, nameSuffix) => {
   const lastNonTakenIndex = await getLastNonTakenIndex(folder);
   const folderPath = getPath(folder);
   return fs.writeFile(
-    `${folderPath}/${lastNonTakenIndex}${nameSuffix ? `-${nameSuffix}` : ""}`,
+    `${folderPath}/${lastNonTakenIndex}${
+      nameSuffix ? `-${nameSuffix.split(" ").join("-")}` : ""
+    }`,
     stringToSave
   );
 };

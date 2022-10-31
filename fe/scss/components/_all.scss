@@ -3,60 +3,67 @@
 body {
   font-size: 20px;
   font-family: "Montserrat", sans-serif;
-  background: $outer-space-crayola;
+  background: $theme-blue;
+  padding: 20px;
+  height: 100vh;
 }
 .site-container {
   display: flex;
-  height: 100vh;
+  height: 100%;
   flex-direction: row;
 }
 .console-column {
   height: 100%;
-  width: 80%;
+  width: 100%;
+  margin-right: 20px;
+  display: flex;
 }
 
-.folder-selector {
-  width: 100%;
-  display: block;
-  padding: 15px;
-  background-color: $outer-space-crayola;
-  outline: none;
-  border: none;
-  color: white;
-  font-size: 1.5em;
-}
 .snippets-container {
-  background: $hunter-green;
-  border-left: 1px solid $carrot-orange;
-  width: 20%;
+  background: $theme-blue;
+  border: 1px solid white;
+  width: 15%;
   overflow-y: scroll;
+  .folder-selector {
+    width: 100%;
+    display: block;
+    padding: 15px;
+    background-color: $theme-blue;
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+  }
   .snippet-list {
     list-style: none;
     color: black;
     &__item {
       padding: 5px;
       cursor: pointer;
-      background-color: $green-yellow-light;
+      background-color: $orange-dark;
       margin: 10px;
       color: $carrot-orange;
       letter-spacing: 1.5px;
       transition: background-color 0.5s;
       padding: 10px;
+      padding-right: 20px;
       position: relative;
       &:hover {
-        background-color: $outer-space-crayola;
+        background-color: $orange-bright;
       }
       .delete-icon {
         position: absolute;
         width: 20px;
         height: 20px;
         right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
         background-image: url("/img/delete.png");
         background-size: contain;
         background-position: center;
         transition: transform 0.5s;
         &:hover {
-          transform: scale(1.2);
+          transform: scale(1.2) translateY(-50%);
         }
       }
     }
@@ -65,41 +72,52 @@ body {
 
 .console-container {
   display: flex;
-  height: 40%;
+  // height: 40%;
+  width: 60%;
   overflow: scroll;
   align-items: stretch;
+  border: 1px solid white;
+  margin-right: 20px;
 
   #code-console {
     position: relative;
     height: 100%;
     width: 100%;
+    margin-right: 20px;
   }
 }
 
 .result-box {
   flex: 1;
-  // background: $outer-space-crayola;
-  height: 60%;
+  width: 25%;
   overflow: scroll;
-  background-color: $outer-space-crayola;
-  padding-bottom: 5%;
+  background-color: $theme-blue;
+
   .code-example {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: flex-end;
     position: relative;
-    border-bottom: 1px solid $carrot-orange;
-    &__snippet,
+    border: 1px solid white;
+    margin: 0 10px 10px 10px;
+    border-radius: 5px;
+    &::after,
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+    }
+
+    // border-bottom: 1px solid $carrot-orange;
+    // &__snippet,
     &__result {
-      width: 48%;
-      border-radius: 10px;
+      width: 100%;
       padding: 10px;
       margin: 10px;
       height: 100%;
     }
 
     &__snippet {
-      pointer-events: none;
       height: 100%;
     }
 
