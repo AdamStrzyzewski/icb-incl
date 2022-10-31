@@ -13,8 +13,8 @@ About something like this:
 ## how to run
 
 ```
-1. npm install in /be
-2. npm run start
+1. go to /be folder, and run npm install
+2. npm run start in the /be folder
 3. go to localhost:3000
 ```
 
