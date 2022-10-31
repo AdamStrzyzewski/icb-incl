@@ -50,7 +50,7 @@ const printTo = (toPrint, snippet, t = null) => {
 
   const toWrite = [];
   toPrint.forEach((loggedArgs) => {
-    loggedArgs.forEach((arg) => {
+    JSON.parse(loggedArgs).forEach((arg) => {
       toWrite.push(`${JSON.stringify(arg)}`);
     });
   });
@@ -65,8 +65,6 @@ const printTo = (toPrint, snippet, t = null) => {
   const idResult = `code-result-${Math.floor(Math.random() * 100000)}`;
   resultContainer.id = idResult;
   createReadableACE(idResult);
-
-  // scrollElemToBottom(resultBox);
 
   if (t !== null) {
     const timer = document.createElement("span");
@@ -91,7 +89,7 @@ const evalSnippet = (snippet) => {
     const result = Function(`
       const toPrint = [];
       const addToPush = (...args) => {
-        toPrint.push(args);
+        toPrint.push(JSON.stringify(args));
       };
       ${snippet
         .replace(/console\.log\(/g, "addToPush(")

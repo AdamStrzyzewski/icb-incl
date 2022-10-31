@@ -40,16 +40,18 @@ body {
     &__item {
       padding: 5px;
       cursor: pointer;
-      background-color: $orange-dark;
-      margin: 10px;
-      color: $carrot-orange;
+      color: $mint-cream;
       letter-spacing: 1.5px;
-      transition: background-color 0.5s;
+      background-color: none;
+      transition: background-color 0.3s, color 0.3s;
       padding: 10px;
-      padding-right: 20px;
+      padding-right: 22px;
       position: relative;
       &:hover {
-        background-color: $orange-bright;
+        color: $theme-blue;
+        background-color: $carrot-orange;
+        border: 1px solid $theme-blue;
+        border: none;
       }
       .delete-icon {
         position: absolute;
