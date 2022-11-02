@@ -50,9 +50,13 @@ const printTo = (toPrint, snippet, t = null) => {
 
   const toWrite = [];
   toPrint.forEach((loggedArgs) => {
-    JSON.parse(loggedArgs).forEach((arg) => {
-      toWrite.push(`${JSON.stringify(arg)}`);
-    });
+    try {
+      JSON.parse(loggedArgs).forEach((arg) => {
+        toWrite.push(`${JSON.stringify(arg)}`);
+      });
+    } catch (e) {
+      console.log(e.toString());
+    }
   });
   resultContainer.innerHTML = toWrite.join("\n");
 
@@ -101,7 +105,7 @@ const evalSnippet = (snippet) => {
     return { result, t };
   } catch (e) {
     t = Date.now() - t;
-    return { result: [[e.toString()]], t };
+    return { result: [JSON.stringify([e.toString()])], t };
   }
 };
 
