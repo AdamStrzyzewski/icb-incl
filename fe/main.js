@@ -22,6 +22,12 @@ const createReadableACE = (id) => {
     readOnly: true,
     highlightActiveLine: false,
     highlightGutterLine: false,
+    printMargin: false,
+    selectionStyle: "line",
+    behavioursEnabled: true,
+    wrapBehavioursEnabled: true,
+    autoScrollEditorIntoView: true,
+    wrap: true,
   });
   editor.setTheme("ace/theme/cobalt");
   editor.session.setMode("ace/mode/javascript");
@@ -52,7 +58,8 @@ const printTo = (toPrint, snippet, t = null) => {
   toPrint.forEach((loggedArgs) => {
     try {
       JSON.parse(loggedArgs).forEach((arg) => {
-        toWrite.push(`${JSON.stringify(arg)}`);
+        console.log(JSON.stringify(arg));
+        toWrite.push(`${JSON.stringify(arg, null, 4)}`);
       });
     } catch (e) {
       console.log(e.toString());
