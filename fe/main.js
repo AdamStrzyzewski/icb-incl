@@ -54,15 +54,42 @@ const printTo = (toPrint, snippet, t = null) => {
   // exampleContainer.appendChild(snippetContainer);
   exampleContainer.appendChild(resultContainer);
 
+  // credit https://stackoverflow.com/users/789569/logan
+  function censor(censor) {
+    var i = 0;
+
+    return function (key, value) {
+      if (typeof val === "function") {
+        return val.toString();
+      }
+
+      if (
+        i !== 0 &&
+        typeof censor === "object" &&
+        typeof value === "object" &&
+        censor === value
+      ) {
+        return "[Circular]";
+      }
+
+      if (i >= 29) {
+        return "[Unknown]";
+      }
+
+      ++i;
+
+      return value;
+    };
+  }
+
   const toWrite = [];
   toPrint.forEach((loggedArgs) => {
     try {
-      JSON.parse(loggedArgs).forEach((arg) => {
-        console.log(JSON.stringify(arg));
-        toWrite.push(`${JSON.stringify(arg, null, 4)}`);
+      loggedArgs.forEach((arg) => {
+        toWrite.push(`${JSON.stringify(arg, censor(arg), 4)}`);
       });
     } catch (e) {
-      console.log(e.toString());
+      toWrite.push(e.toString());
     }
   });
   resultContainer.innerHTML = toWrite.join("\n");
@@ -100,7 +127,7 @@ const evalSnippet = (snippet) => {
     const result = Function(`
       const toPrint = [];
       const addToPush = (...args) => {
-        toPrint.push(JSON.stringify(args));
+        toPrint.push(args);
       };
       ${snippet
         .replace(/console\.log\(/g, "addToPush(")
@@ -112,7 +139,7 @@ const evalSnippet = (snippet) => {
     return { result, t };
   } catch (e) {
     t = Date.now() - t;
-    return { result: [JSON.stringify([e.toString()])], t };
+    return { result: [[e.toString()]], t };
   }
 };
 
