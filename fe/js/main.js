@@ -9,9 +9,22 @@ const resultBox = document.getElementById("result-box");
 const snippetList = document.getElementById("snippet-list");
 const folderSelector = document.getElementById("folder-selector");
 
-const getHuman = (t) => {
-  const ms = parseInt(t);
-  return `${ms}ms`;
+// define console editor style
+const editor = ace.edit("code-console", {
+  maxLines: Infinity,
+  minLines: 50,
+  fontSize: "1em",
+});
+
+editor.setTheme("ace/theme/cobalt");
+editor.session.setMode("ace/mode/javascript");
+
+const beautify = (editor) => {
+  editor.getSession().setValue(
+    js_beautify(editor.getValue(), {
+      indent_size: 2,
+    })
+  );
 };
 
 const createReadableACE = (id) => {
@@ -29,61 +42,22 @@ const createReadableACE = (id) => {
     autoScrollEditorIntoView: true,
     wrap: true,
   });
+
   editor.setTheme("ace/theme/cobalt");
   editor.session.setMode("ace/mode/javascript");
   editor.renderer.$cursorLayer.element.style.display = "none";
   editor.renderer.setShowGutter(false);
 };
 
-const scrollElemToBottom = (el) => {
-  el.scrollTop = el.scrollHeight;
-};
-
-const printTo = (toPrint, snippet, t = null) => {
-  const exampleContainer = document.createElement("div");
-  exampleContainer.classList.add("code-example");
-
-  const resultContainer = document.createElement("pre");
-  resultContainer.classList.add("code-example__result");
-
-  const snippetContainer = document.createElement("pre");
-  snippetContainer.classList.add("code-example__snippet");
-  snippetContainer.classList.add("language-js");
-  snippetContainer.innerHTML = snippet;
-
-  // exampleContainer.appendChild(snippetContainer);
-  exampleContainer.appendChild(resultContainer);
-
-  // credit https://stackoverflow.com/users/789569/logan
-  function censor(censor) {
-    var i = 0;
-
-    return function (key, value) {
-      if (typeof val === "function") {
-        return val.toString();
-      }
-
-      if (
-        i !== 0 &&
-        typeof censor === "object" &&
-        typeof value === "object" &&
-        censor === value
-      ) {
-        return "[Circular]";
-      }
-
-      if (i >= 29) {
-        return "[Unknown]";
-      }
-
-      ++i;
-
-      return value;
-    };
-  }
-
+const getToWrite = (toPrint) => {
   const toWrite = [];
+  if (!Array.isArray(toPrint)) {
+    toPrint = [toPrint];
+  }
   toPrint.forEach((loggedArgs) => {
+    if (!Array.isArray(loggedArgs)) {
+      loggedArgs = [loggedArgs];
+    }
     try {
       loggedArgs.forEach((arg) => {
         toWrite.push(`${JSON.stringify(arg, censor(arg), 4)}`);
@@ -92,67 +66,74 @@ const printTo = (toPrint, snippet, t = null) => {
       toWrite.push(e.toString());
     }
   });
-  resultContainer.innerHTML = toWrite.join("\n");
+  return toWrite.join("\n");
+};
 
-  resultBox.prepend(exampleContainer);
+const printTo = (idResult, ...toPrint) => {
+  const snippet = document.getElementById(idResult);
+  if (snippet) {
+    const editor = ace.edit(idResult);
+    editor.setValue(editor.getValue() + `\n${getToWrite(toPrint)}`, -1);
+  } else {
+    const exampleContainer = document.createElement("div");
+    exampleContainer.classList.add("code-example");
 
-  // const id = `code-snippet-${Math.floor(Math.random() * 100000)}`;
-  // snippetContainer.id = id;
-  // createReadableACE(id);
+    const resultContainer = document.createElement("pre");
+    resultContainer.classList.add("code-example__result");
 
-  const idResult = `code-result-${Math.floor(Math.random() * 100000)}`;
-  resultContainer.id = idResult;
-  createReadableACE(idResult);
+    const snippetContainer = document.createElement("pre");
+    snippetContainer.classList.add("code-example__snippet");
+    snippetContainer.classList.add("language-js");
 
-  if (t !== null) {
-    const timer = document.createElement("span");
-    timer.classList.add("timer");
-    timer.innerHTML = getHuman(t);
-    resultContainer.appendChild(timer);
+    // exampleContainer.appendChild(snippetContainer);
+    exampleContainer.appendChild(resultContainer);
+
+    resultContainer.innerHTML = getToWrite(toPrint);
+
+    resultBox.prepend(exampleContainer);
+
+    resultContainer.id = idResult;
+    createReadableACE(idResult);
+
+    // if (t !== null) {
+    //   const timer = document.createElement("span");
+    //   timer.classList.add("timer");
+    //   timer.innerHTML = getHuman(t);
+    //   resultContainer.appendChild(timer);
+    // }
   }
 };
 
-const editor = ace.edit("code-console", {
-  maxLines: Infinity,
-  minLines: 50,
-  fontSize: "1em",
-});
-
-editor.setTheme("ace/theme/cobalt");
-editor.session.setMode("ace/mode/javascript");
-
 const evalSnippet = (snippet) => {
   let t = Date.now();
+  const idResult = `code-result-${Math.floor(Math.random() * 100000)}`;
   try {
     const result = Function(`
-      const toPrint = [];
-      const addToPush = (...args) => {
-        toPrint.push(args);
-      };
+      // console.log(printTo)
+      // const toPrint = [];
+      // const addToPush = (...args) => {
+      //   toPrint.push(args);
+      // };
       ${snippet
-        .replace(/console\.log\(/g, "addToPush(")
-        .replace(/log\((.*)\)/g, "addToPush($1)")};
-      // TODO: handle setTimeouts etc
-      return toPrint;`)();
+        .replace(/console\.log\(/g, `printTo('${idResult}',`)
+        .replace(/log\((.*)\)/g, `printTo('${idResult}',$1)`)};
+      // return toPrint;
+      `)();
 
-    t = Date.now() - t;
     return { result, t };
   } catch (e) {
-    t = Date.now() - t;
-    return { result: [[e.toString()]], t };
+    console.log("e", e);
   }
 };
 
 const runSnippet = (editor) => {
   const snippet = editor.getValue();
-  const { result: toPrint, t } = evalSnippet(snippet) ?? { result: [], t };
-  printTo(toPrint, snippet, t);
+  evalSnippet(snippet);
 };
 
 // snippet saving handling
 const saveSnippet = (editor) => {
   const snippet = editor.getValue();
-  // TODO: change folder to dynamically updated
   socket.emit("saveSnippet", { folder, snippet });
 };
 
@@ -231,6 +212,12 @@ folderSelector.addEventListener("keyup", folderKeyup);
 //   snippet: "1-get random int",
 //   folder,
 // });
+
+editor.commands.addCommand({
+  name: "beautify",
+  bindKey: { win: "Ctrl-Shift-F", mac: "Command-Shift-F" },
+  exec: beautify,
+});
 
 editor.commands.addCommand({
   name: "saveSnippet",

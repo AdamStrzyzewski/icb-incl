@@ -11,7 +11,7 @@ const io = require("socket.io")(server, {
 });
 const cors = require("cors");
 
-app.use(express.static(__dirname + "/../fe"));
+app.use(express.static(__dirname + "/fe"));
 app.use(cors({}));
 
 server.listen(process.env.PORT || 3000, function () {
