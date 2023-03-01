@@ -46,7 +46,6 @@ const createReadableACE = (id) => {
   editor.setTheme("ace/theme/cobalt");
   editor.session.setMode("ace/mode/javascript");
   editor.renderer.$cursorLayer.element.style.display = "none";
-  editor.renderer.setShowGutter(false);
 };
 
 const getToWrite = (toPrint) => {
@@ -54,14 +53,10 @@ const getToWrite = (toPrint) => {
   if (!Array.isArray(toPrint)) {
     toPrint = [toPrint];
   }
-  toPrint.forEach((loggedArgs) => {
-    if (!Array.isArray(loggedArgs)) {
-      loggedArgs = [loggedArgs];
-    }
+  console.log(toPrint);
+  toPrint.forEach((loggedArg) => {
     try {
-      loggedArgs.forEach((arg) => {
-        toWrite.push(`${JSON.stringify(arg, censor(arg), 4)}`);
-      });
+      toWrite.push(`${JSON.stringify(loggedArg, censor(loggedArg), 4)}`);
     } catch (e) {
       toWrite.push(e.toString());
     }
