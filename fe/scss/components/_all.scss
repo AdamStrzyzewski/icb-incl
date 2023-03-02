@@ -1,7 +1,7 @@
 @use "../partials/pallete" as *;
 
 body {
-  font-size: 20px;
+  font-size: 24px;
   font-family: "Montserrat", sans-serif;
   background: $theme-blue;
   padding: 20px;
@@ -11,7 +11,7 @@ body {
   display: flex;
   height: 100%;
   flex-direction: row;
-}
+} 
 .console-column {
   height: 100%;
   width: 100%;

@@ -53,7 +53,7 @@ const getToWrite = (toPrint) => {
   if (!Array.isArray(toPrint)) {
     toPrint = [toPrint];
   }
-  console.log(toPrint);
+
   toPrint.forEach((loggedArg) => {
     try {
       toWrite.push(`${JSON.stringify(loggedArg, censor(loggedArg), 4)}`);
