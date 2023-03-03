@@ -49,10 +49,15 @@ const getFileList = async (folder) => {
 
 const getLastNonTakenIndex = async (folder) => {
   const fileList = await getFileList(folder);
+
   return (
     parseInt(
       fileList
-        .map((el) => parseInt(el.name, 10))
+        .map((el) => {
+          const n = parseInt(el.name, 10);
+          const isNaN = Number.isNaN(n);
+          return isNaN ? 0 : n;
+        })
         .sort((a, b) => b - a)
         .shift() ?? "0",
       10

@@ -56,6 +56,9 @@ const getToWrite = (toPrint) => {
 
   toPrint.forEach((loggedArg) => {
     try {
+      if (Number.isNaN(loggedArg)) {
+        loggedArg = "NaN";
+      }
       toWrite.push(`${JSON.stringify(loggedArg, censor(loggedArg), 4)}`);
     } catch (e) {
       toWrite.push(e.toString());
@@ -117,7 +120,7 @@ const evalSnippet = (snippet) => {
 
     return { result, t };
   } catch (e) {
-    console.log("e", e);
+    printTo(idResult, e.toString());
   }
 };
 

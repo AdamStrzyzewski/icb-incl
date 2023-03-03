@@ -9,11 +9,15 @@ const scrollElemToBottom = (el) => {
 
 // credit https://stackoverflow.com/users/789569/logan
 function censor(censor) {
-  var i = 0;
+  let i = 0;
 
   return function (key, value) {
-    if (typeof val === "function") {
-      return val.toString();
+    if (typeof value === "function") {
+      return value.toString();
+    }
+
+    if (typeof value === "undefined") {
+      return "undefined";
     }
 
     if (
